@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 )
+
+// Declare port
+const PORT = "8080"
 
 // Web server example
 func main() {
@@ -16,9 +18,10 @@ func main() {
 	http.Handle("/", fileServer)
 	http.HandleFunc("/fizzbuzz", fizzbuzzHandler)
 
-	fmt.Printf("Starting server at port 8080\n")
+	fmt.Printf("Starting server at port %s\n", PORT)
+
 	// Error handling example
-	if err := http.ListenAndServe(GetPort(), nil); err != nil {
+	if err := http.ListenAndServe(":"+PORT, nil); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -37,31 +40,54 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	query := r.URL.Query()
+
 	// Check request query parameters
-	start, err := strconv.Atoi(r.URL.Query().Get("start"))
+	start, err := strconv.Atoi(query.Get("start"))
 	if err != nil || start < -10000 || start > 10000 {
 		fmt.Fprintf(w, "Start value is not an integer between -10000 and 10000")
 		return
 	}
 
-	number, err := strconv.Atoi(r.URL.Query().Get("number"))
+	number, err := strconv.Atoi(query.Get("number"))
 	if err != nil || number < 1 || number > 10000 {
 		fmt.Fprintf(w, "Number value is not an integer between 1 and 10000")
 		return
 	}
 
-	// Respond with fizzbuzz output
-	fmt.Fprintf(w, strings.Join(fizzbuzz(start, number,
-		cond{3, "fizz"},
-		cond{5, "buzz"}), " "))
-}
+	keys := query["cond-key"]
+	strs := query["cond-str"]
 
-// Port function for Heroku deployment
-func GetPort() string {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+	if len(keys) != len(strs) {
+		fmt.Fprintf(w, "Number of keys and number of strs do not match")
+		return
 	}
-	return ":" + port
+
+	if len(keys) > 10 {
+		fmt.Fprintf(w, "Number of conditions exceed 10")
+		return
+	}
+
+	conds := make([]cond, len(keys))
+	for i := 0; i < len(keys); i++ {
+		key, err := strconv.Atoi(keys[i])
+		if err != nil || key < 1 || key > 10000 {
+			fmt.Fprintf(w, "Key #%v is not an integer between 1 and 10000", i+1)
+			return
+		}
+
+		str := strs[i]
+		if len(str) < 1 || len(str) > 4 {
+			fmt.Fprintf(w, "Str #%v does not have length between 1 and 4", i+1)
+			return
+		}
+
+		conds[i] = cond{
+			key: key,
+			str: str,
+		}
+	}
+
+	// Respond with fizzbuzz output
+	fmt.Fprintf(w, strings.Join(fizzbuzz(start, number, conds...), " "))
 }

@@ -19,6 +19,8 @@ input {
 	box-sizing: border-box;
 	color: #05abd9;
 	font-size: 32px;
+	margin-left: 4px;
+	margin-right: 4px;
 	outline: none;
 	padding-left: 8px;
 	padding-right: 8px;
@@ -58,12 +60,14 @@ input::-webkit-inner-spin-button {
 }
 
 .row {
+	display: flex;
+	flex-direction: row;
 	margin-bottom: 12px;
 	width: 100%;
 }
 
 .row div {
-	float: left;
+	display: flex;
 	width: 50%;
 }
 
@@ -73,7 +77,7 @@ input::-webkit-inner-spin-button {
 	box-sizing: border-box;
 	font-size: 24px;
 	max-height: 0px;
-	overflow-y: hidden;
+	overflow: hidden;
 	position: relative;
 	transition: 0.3s linear;
 	width: 80%;
@@ -99,7 +103,7 @@ input::-webkit-inner-spin-button {
 
 #output-text {
 	max-height: 476px;
-	overflow-y: hidden;
+	overflow: hidden;
 	padding: 12px;
 	text-align: justify;
 }
