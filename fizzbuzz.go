@@ -1,5 +1,7 @@
+// Package declaration (main tells compiler it should be executable)
 package main
 
+// Import packages from Go standard library
 import (
 	"strconv"
 )
