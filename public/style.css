@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+
+body {
+	align-items: center;
+	background: #222222;
+	color: #05abd9;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Arimo', sans-serif;
+	padding: 24px;
+}
+
+input {
+	background: #505050;
+	border: none;
+	border-radius: 8px;
+	box-sizing: border-box;
+	color: #05abd9;
+	font-size: 32px;
+	outline: none;
+	padding-left: 8px;
+	padding-right: 8px;
+	transition: background .2s;
+	width: 100%;
+}
+
+input:hover {
+	background: #646464;
+	cursor: pointer;
+}
+
+input:active {
+	background: #505050;
+}
+
+input::-webkit-inner-spin-button {
+	margin: 0;
+	-webkit-appearance: none;
+}
+
+#title {
+	font-size: 120px;
+	margin-bottom: 30px;
+}
+
+#title img {
+	height: 105px;
+}
+
+#form {
+	display: flex;
+	flex-direction: column;
+	font-size: 32px;
+	margin-bottom: 16px;
+	width: 300px;
+}
+
+.row {
+	margin-bottom: 12px;
+	width: 100%;
+}
+
+.row div {
+	float: left;
+	width: 50%;
+}
+
+#output {
+	background: #505050;
+	border-radius: 8px;
+	box-sizing: border-box;
+	font-size: 24px;
+	max-height: 0px;
+	overflow-y: hidden;
+	position: relative;
+	transition: 0.3s linear;
+	width: 80%;
+}
+
+#output-copy {
+	height: 32px;
+	opacity: 0;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	transition: opacity 0.1s;
+}
+
+#output-copy:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+#output-copy:active {
+	opacity: 0.7;
+}
+
+#output-text {
+	max-height: 476px;
+	overflow-y: hidden;
+	padding: 12px;
+	text-align: justify;
+}
+
+#output-text:hover {
+	overflow-y: overlay;
+}
+
+#output-text::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 8px;
+}
+
+#output-text::-webkit-scrollbar-thumb {
+	background-color: #909090;
+	border-radius: 10px;
+}
+
+#output-text::-webkit-scrollbar-thumb:hover {
+	background-color: #808080;
+}
