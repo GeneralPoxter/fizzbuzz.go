@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -14,7 +15,7 @@ func main() {
 	http.HandleFunc("/fizzbuzz", fizzbuzzHandler)
 
 	fmt.Printf("Starting server at port 8080\n")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(GetPort(), nil); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -45,4 +46,13 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, strings.Join(fizzbuzz(start, number,
 		cond{3, "fizz"},
 		cond{5, "buzz"}), " "))
+}
+
+func GetPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+	}
+	return ":" + port
 }
