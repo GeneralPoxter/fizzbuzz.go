@@ -7,7 +7,9 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Arimo', sans-serif;
+	opacity: 0;
 	padding: 24px;
+	transition: opacity 1s;
 }
 
 input {
