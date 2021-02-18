@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
-
-// Declare port
-const PORT = "8080"
 
 // Web server example
 func main() {
@@ -18,10 +16,9 @@ func main() {
 	http.Handle("/", fileServer)
 	http.HandleFunc("/fizzbuzz", fizzbuzzHandler)
 
-	fmt.Printf("Starting server at port %s\n", PORT)
-
-	// Error handling example
-	if err := http.ListenAndServe(":"+PORT, nil); err != nil {
+	// Set up server at port
+	if err := http.ListenAndServe(GetPort(), nil); err != nil {
+		// Error handling example
 		log.Fatal(err)
 	}
 }
@@ -90,4 +87,15 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Respond with fizzbuzz output
 	fmt.Fprintf(w, strings.Join(fizzbuzz(start, number, conds...), " "))
+}
+
+// Port function for Heroku deployment
+func GetPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+	}
+	fmt.Println("Starting server at port " + port)
+	return ":" + port
 }
