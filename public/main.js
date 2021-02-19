@@ -34,12 +34,28 @@ function addCondition(key = '', str = '') {
 
 	let keyBoxDiv = document.createElement('div');
 	let keyBox = document.createElement('input');
-	setAttributes(keyBox, { class: 'text', name: 'cond-key', type: 'number', value: key, in: '1', max: '10000' });
+	setAttributes(keyBox, {
+		class: 'text',
+		name: 'cond-key',
+		type: 'number',
+		placeholder: 'Key',
+		value: key,
+		in: '1',
+		max: '10000'
+	});
 	keyBoxDiv.appendChild(keyBox);
 
 	let strBoxDiv = document.createElement('div');
 	let strBox = document.createElement('input');
-	setAttributes(strBox, { class: 'text', name: 'cond-str', type: 'text', value: str, min: '1', maxlength: '4' });
+	setAttributes(strBox, {
+		class: 'text',
+		name: 'cond-str',
+		type: 'text',
+		placeholder: 'Str',
+		value: str,
+		min: '1',
+		maxlength: '4'
+	});
 	strBoxDiv.appendChild(strBox);
 
 	row.appendChild(keyBoxDiv);
@@ -47,6 +63,8 @@ function addCondition(key = '', str = '') {
 	form.insertBefore(row, document.getElementsByClassName('row')[conditions + 2]);
 	updateTextboxes();
 	conditions++;
+
+	row.style.display = 'none';
 }
 
 function updateTextboxes() {
