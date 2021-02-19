@@ -8,15 +8,14 @@ form.addEventListener('submit', async function(event) {
 	let params = new URLSearchParams(new FormData(this)).toString();
 	const res = await fetch('/fizzbuzz?' + params).then((res) => res.text());
 	let disp = function() {
+		output.style.height = '500px';
 		outputText.innerText = res;
-		output.style.height = 'auto';
-		output.style.maxHeight = '500px';
-	};
-	if (output.style.maxHeight == '0') {
-		disp;
+	}
+	if (output.style.height != '0px') {
+		output.style.height = '0px';
+		setTimeout(disp, 250);
 	} else {
-		output.style.maxHeight = '0';
-		setTimeout(disp, 300);
+		disp;
 	}
 });
 
