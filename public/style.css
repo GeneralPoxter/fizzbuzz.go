@@ -24,17 +24,21 @@ input {
 	outline: none;
 	padding-left: 8px;
 	padding-right: 8px;
-	transition: background .2s;
+	transition: background 0.2s;
 	width: 100%;
 }
 
 input:hover {
 	background: #646464;
+}
+
+input[type=submit]:hover {
 	cursor: pointer;
 }
 
 input:active {
 	background: #505050;
+	transition: 0s;
 }
 
 input::-webkit-inner-spin-button {
@@ -80,7 +84,7 @@ input::-webkit-inner-spin-button {
 	overflow: hidden;
 	position: relative;
 	transition: 0.15s;
-	width: 80%;
+	width: 700px;
 }
 
 #output-copy {
@@ -89,7 +93,7 @@ input::-webkit-inner-spin-button {
 	position: absolute;
 	right: 10px;
 	top: 10px;
-	transition: opacity 0.1s;
+	transition: opacity 0.2s;
 }
 
 #output-copy:hover {
@@ -99,6 +103,7 @@ input::-webkit-inner-spin-button {
 
 #output-copy:active {
 	opacity: 0.7;
+	transition: 0s;
 }
 
 #output-text {

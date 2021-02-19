@@ -11,11 +11,11 @@ form.addEventListener('submit', async function(event) {
 		output.style.height = '500px';
 		outputText.innerText = res;
 	}
-	if (output.style.height != '0px') {
+	if (output.style.height) {
 		output.style.height = '0px';
 		setTimeout(disp, 250);
 	} else {
-		disp;
+		disp();
 	}
 });
 
